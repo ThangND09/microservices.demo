@@ -17,25 +17,25 @@ public class CurrencyClientController {
 	@Autowired
 	private CurrencyExchangeServiceProxy proxy;
 	
-	@GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
-	public CurrencyClientBean convertCurrency(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
-		
-		Map<String, String> uriVariables = new HashMap<String, String>();
-		
-		uriVariables.put("from", from);
-		
-		uriVariables.put("to", to);
-		
-		ResponseEntity<CurrencyClientBean> responseEntity = new RestTemplate().getForEntity("http://localhost:8001/currency-exchange/from/{from}/to/{to}",
-				CurrencyClientBean.class,
-				uriVariables);
-		
-		CurrencyClientBean responseBean = responseEntity.getBody();
-
-		
-		return new CurrencyClientBean(responseBean.getId(), from, to, responseBean.getConversionMultiple(), 
-				quantity, quantity.multiply(responseBean.getConversionMultiple()), responseBean.getPort());
-	}
+//	@GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
+//	public CurrencyClientBean convertCurrency(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
+//		
+//		Map<String, String> uriVariables = new HashMap<String, String>();
+//		
+//		uriVariables.put("from", from);
+//		
+//		uriVariables.put("to", to);
+//		
+//		ResponseEntity<CurrencyClientBean> responseEntity = new RestTemplate().getForEntity("http://localhost:8001/currency-exchange/from/{from}/to/{to}",
+//				CurrencyClientBean.class,
+//				uriVariables);
+//		
+//		CurrencyClientBean responseBean = responseEntity.getBody();
+//
+//		
+//		return new CurrencyClientBean(responseBean.getId(), from, to, responseBean.getConversionMultiple(), 
+//				quantity, quantity.multiply(responseBean.getConversionMultiple()), responseBean.getPort());
+//	}
 	
 	@GetMapping("/currency-converter-test/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyClientBean convertCurrencyTest(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
