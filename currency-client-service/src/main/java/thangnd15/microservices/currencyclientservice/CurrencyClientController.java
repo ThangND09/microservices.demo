@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import ch.qos.logback.classic.Logger;
+
 @RestController
 public class CurrencyClientController {
+	
+	private Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private CurrencyExchangeServiceProxy proxy;
@@ -42,6 +47,8 @@ public class CurrencyClientController {
 		
 		
 		CurrencyClientBean responseBean = proxy.retrieveExchangeValue(from, to);
+		
+		logger.info("ThangNd15 -> {}", responseBean);
 		
 		return new CurrencyClientBean(responseBean.getId(), from, to, responseBean.getConversionMultiple(), 
 				quantity, quantity.multiply(responseBean.getConversionMultiple()), responseBean.getPort());
